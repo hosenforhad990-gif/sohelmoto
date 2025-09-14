@@ -1,0 +1,302 @@
+-<!-
+Sohel Moto - Single-file responsive website
+Save this file as: index.html
+Open in browser to preview. Replace placeholder images/text with real data.
+
+Sections included:
+- Header / Nav (fixed)
+- Hero with CTA
+- About
+- Products (sample grid)
+- Services
+- Contact (form + Google Map embed)
+- Footer
+
+Colors: black, red, white
+Technologies: HTML, CSS (internal), JavaScript (internal)
+--><!doctype html>
+
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sohel Moto — Motorcycle Parts & Accessories</title>
+  <meta name="description" content="Sohel Moto - quality motorcycle parts, accessories, and repair services." />  <style>
+    :root{
+      --bg: #0b0b0b;
+      --card: #111111;
+      --accent: #d62828; /* red */
+      --muted: #bdbdbd;
+      --white: #ffffff;
+      --radius: 12px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#060606 0%, #0f0f0f 100%);
+      color:var(--white);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+      padding-top:72px; /* space for fixed nav */
+    }
+
+    /* Header */
+    .nav{
+      position:fixed;top:0;left:0;right:0;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(5,5,5,0.7);backdrop-filter:blur(6px);z-index:50;border-bottom:1px solid rgba(255,255,255,0.04);
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--white);font-size:18px}
+    .nav-links{display:flex;gap:18px;align-items:center}
+    .nav-links a{color:var(--white);text-decoration:none;font-weight:600}
+    .cta-btn{background:var(--accent);color:var(--white);padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+
+    /* Mobile menu */
+    .menu-toggle{display:none;background:transparent;border:0;color:var(--white);font-size:20px}
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .menu-toggle{display:block}
+    }
+
+    /* Hero */
+    .hero{max-width:1200px;margin:28px auto;padding:28px;display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:center}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:28px;border-radius:16px}
+    h1{font-size:32px;margin:0 0 10px}
+    .tagline{color:var(--muted);margin-bottom:16px}
+    .hero-cta{display:flex;gap:12px;align-items:center}
+
+    .hero-image{border-radius:12px;overflow:hidden;background:#222;height:100%;display:flex;align-items:center;justify-content:center}
+    .hero-image img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* Sections */
+    .container{max-width:1200px;margin:24px auto;padding:0 20px}
+    .section{margin:36px 0}
+    .section h2{margin:0 0 12px}
+    .card{background:var(--card);padding:16px;border-radius:12px}
+
+    /* Products grid */
+    .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .product{background:linear-gradient(180deg,#0f0f0f, #141414);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .product img{width:100%;height:160px;object-fit:cover;border-radius:8px}
+    .product h3{margin:8px 0 4px;font-size:16px}
+    .price{font-weight:800;color:var(--accent)}
+    .product .buy{margin-top:8px;display:inline-block;padding:8px 10px;border-radius:8px;background:transparent;border:1px solid var(--accent);color:var(--accent);text-decoration:none;font-weight:700}
+
+    @media(max-width:1100px){.products-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:800px){.hero{grid-template-columns:1fr;}
+      .products-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:480px){.products-grid{grid-template-columns:1fr;padding-bottom:40px}}
+
+    /* Services list */
+    .services{display:flex;gap:12px;flex-wrap:wrap}
+    .service{flex:1;min-width:220px}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 420px;gap:18px}
+    .contact-form input,.contact-form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--white);margin-bottom:10px}
+    .contact-form button{background:var(--accent);color:var(--white);padding:10px 12px;border-radius:10px;border:0;font-weight:700}
+    @media(max-width:900px){.contact-grid{grid-template-columns:1fr}}
+
+    /* Footer */
+    footer{padding:28px 20px;background:transparent;border-top:1px solid rgba(255,255,255,0.03);margin-top:40px}
+    .footer-grid{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;gap:20px;align-items:center}
+
+    a.social{display:inline-block;margin-left:8px;text-decoration:none;color:var(--muted)}
+
+    /* utility */
+    .muted{color:var(--muted)}
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
+  </style></head>
+<body>  <header class="nav">
+    <div class="brand">
+      <div class="logo">SM</div>
+      <div>
+        <div style="font-weight:800">Sohel Moto</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px">Motorcycle Parts & Accessories</div>
+      </div>
+    </div><nav class="nav-links">
+  <a href="#home">Home</a>
+  <a href="#products">Products</a>
+  <a href="#services">Services</a>
+  <a href="#contact">Contact</a>
+  <a class="cta-btn" href="#contact">Contact Us</a>
+</nav>
+
+<button class="menu-toggle" aria-expanded="false" onclick="toggleMenu()">☰</button>
+
+  </header>  <main>
+    <section id="home" class="hero container">
+      <div class="hero-card">
+        <h1>Sohel Moto</h1>
+        <div class="tagline">Quality motorcycle parts, fast service, trusted by riders.</div>
+        <p class="muted">We supply genuine and aftermarket parts for popular motorcycle models. From brake pads to engine components — find what your bike needs.</p><div class="hero-cta" style="margin-top:18px">
+      <a class="cta-btn" href="#products">Shop Now</a>
+      <a class="chip" href="#services">Repair &amp; Maintenance</a>
+    </div>
+
+    <div style="margin-top:18px;display:flex;gap:8px;align-items:center">
+      <div style="font-size:13px;color:var(--muted)">Call us:</div>
+      <div style="font-weight:800">+880 1X-XXXX-XXXX</div>
+    </div>
+  </div>
+
+  <div class="hero-image card">
+    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=60" alt="motorcycle parts" />
+  </div>
+</section>
+
+<section id="about" class="section container">
+  <div class="card">
+    <h2>About Sohel Moto</h2>
+    <p class="muted">Sohel Moto has been serving the local motorcycle community with quality parts and reliable service. Our team inspects every product to ensure performance and safety. Whether you are a professional mechanic or a weekend rider, we have parts that fit your needs.</p>
+  </div>
+</section>
+
+<section id="products" class="section container">
+  <h2>Products</h2>
+  <p class="muted">Sample items — replace these with your real inventory and images.</p>
+
+  <div class="products-grid" id="productsGrid">
+    <!-- Sample product cards (JS will populate duplicates) -->
+  </div>
+
+  <div style="margin-top:14px;display:flex;gap:8px;align-items:center">
+    <a class="chip" href="#contact">Request a quote</a>
+    <div class="muted" style="margin-left:8px">Want your shop inventory online? We can export CSV to populate this list.</div>
+  </div>
+</section>
+
+<section id="services" class="section container">
+  <h2>Services</h2>
+  <div class="services">
+    <div class="card service">
+      <h3>Repair & Maintenance</h3>
+      <p class="muted">Full-service maintenance: oil change, chain adjustment, brake service, and more.</p>
+    </div>
+    <div class="card service">
+      <h3>Parts Sourcing</h3>
+      <p class="muted">Need a hard-to-find component? We source OEM and aftermarket parts on request.</p>
+    </div>
+    <div class="card service">
+      <h3>Accessories Fitment</h3>
+      <p class="muted">Installation and setup for luggage racks, lights, and performance upgrades.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section container">
+  <h2>Contact Us</h2>
+  <div class="card contact-grid">
+    <div>
+      <p class="muted">Visit our shop or send a message using the form. We aim to reply within 24 hours.</p>
+
+      <div style="margin-top:10px">
+        <div><strong>Address:</strong> Shop Road, Dhaka, Bangladesh</div>
+        <div><strong>Phone:</strong> +880 1X-XXXX-XXXX</div>
+        <div><strong>Email:</strong> <a href="mailto:info@sohelmoto.com">info@sohelmoto.com</a></div>
+      </div>
+
+      <div style="margin-top:12px">
+        <div class="muted">Follow us:</div>
+        <a class="social" href="#">Facebook</a>
+        <a class="social" href="#">Instagram</a>
+        <a class="social" href="#">WhatsApp</a>
+      </div>
+
+      <div style="margin-top:14px;" class="muted">Opening hours: Mon–Sat 9:00–19:00</div>
+    </div>
+
+    <div>
+      <form class="contact-form" onsubmit="submitContact(event)">
+        <input type="text" id="name" placeholder="Your name" required />
+        <input type="email" id="email" placeholder="Email address" required />
+        <input type="text" id="subject" placeholder="Subject" />
+        <textarea id="message" rows="5" placeholder="Message" required></textarea>
+        <button type="submit">Send Message</button>
+        <div id="contactMsg" style="margin-top:8px;color:var(--muted);font-size:14px"></div>
+      </form>
+    </div>
+  </div>
+
+  <div style="margin-top:14px" class="card">
+    <h3>Map</h3>
+    <!-- Google Map embed centered on Dhaka; replace the src query with your exact address if desired -->
+    <iframe
+      width="100%"
+      height="320"
+      style="border:0;border-radius:10px;margin-top:8px"
+      loading="lazy"
+      allowfullscreen
+      src="https://www.google.com/maps/embed/v1/place?q=Dhaka%2C+Bangladesh&key=YOUR_GOOGLE_MAPS_EMBED_API_KEY">
+    </iframe>
+    <div class="muted" style="margin-top:8px">Tip: replace the Maps "src" parameter with your exact coordinates or address for a precise pin.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>© <strong>Sohel Moto</strong> — All rights reserved.</div>
+    <div class="muted">Built with ❤️ — Contact for customizations</div>
+  </div>
+</footer>
+
+  </main>  <script>
+    // Sample product data — replace with your real inventory or generate server-side
+    const sampleProducts = [
+      {name:'Brake Pad Set', price: '৳1,200', img:'https://images.unsplash.com/photo-1517148815978-75f6acaaf32c?auto=format&fit=crop&w=800&q=60'},
+      {name:'Motorcycle Chain', price: '৳1,800', img:'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=60'},
+      {name:'Headlight Assembly', price: '৳2,400', img:'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=60'},
+      {name:'Air Filter', price: '৳450', img:'https://images.unsplash.com/photo-1583581995428-7ee9f1c6d3d8?auto=format&fit=crop&w=800&q=60'},
+      {name:'Spark Plug (set)', price: '৳300', img:'https://images.unsplash.com/photo-1605902711622-cfb43c44367e?auto=format&fit=crop&w=800&q=60'},
+      {name:'Oil Filter', price: '৳600', img:'https://images.unsplash.com/photo-1580910051070-2b8b4d4d1a86?auto=format&fit=crop&w=800&q=60'},
+      {name:'Rear Shock', price: '৳4,500', img:'https://images.unsplash.com/photo-1613532532647-97a8f1926a3f?auto=format&fit=crop&w=800&q=60'},
+      {name:'Brake Disc', price: '৳2,100', img:'https://images.unsplash.com/photo-1581579183561-3b9b6e6f0701?auto=format&fit=crop&w=800&q=60'}
+    ];
+
+    function populateProducts(){
+      const grid = document.getElementById('productsGrid');
+      sampleProducts.forEach(p => {
+        const el = document.createElement('div'); el.className='product card';
+        el.innerHTML = `\n          <img src="${p.img}" alt="${p.name}" />\n          <h3>${p.name}</h3>\n          <div class="price">${p.price}</div>\n          <a class="buy" href="#contact">Enquire</a>\n        `;
+        grid.appendChild(el);
+      });
+    }
+
+    function toggleMenu(){
+      const nav = document.querySelector('.nav-links');
+      const btn = document.querySelector('.menu-toggle');
+      if(nav.style.display === 'flex'){
+        nav.style.display=''; btn.setAttribute('aria-expanded','false');
+      } else {
+        nav.style.display='flex'; nav.style.flexDirection='column'; nav.style.background='rgba(5,5,5,0.95)'; nav.style.position='absolute'; nav.style.top='72px'; nav.style.right='20px'; nav.style.padding='12px'; nav.style.borderRadius='8px'; btn.setAttribute('aria-expanded','true');
+      }
+    }
+
+    function submitContact(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const msgEl = document.getElementById('contactMsg');
+
+      // Simple client-side validation
+      if(!name||!email||!message){ msgEl.textContent='Please complete required fields.'; return }
+
+      // This demo doesn't have a backend. For production, POST to your server or use a service (Formspree, Netlify Forms, etc.)
+      msgEl.textContent = 'Thanks, your message has been prepared. For this demo the form won\'t send — integrate a backend or use a form service.';
+
+      // Optionally open user's email client with mailto (uncomment if desired):
+      // window.location.href = `mailto:info@sohelmoto.com?subject=${encodeURIComponent(subject||'Contact from website')}&body=${encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\n'+message)}`;
+
+      // reset form
+      e.target.reset();
+    }
+
+    // Init
+    populateProducts();
+  </script></body>
+</html>
